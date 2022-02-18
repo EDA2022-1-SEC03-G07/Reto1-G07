@@ -20,6 +20,7 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from gettext import Catalog
 import config as cf
 import sys
 import controller
@@ -36,10 +37,28 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("1- Cargar información en el catálogo.")
+    print("2- Listar álbumes por por época ")
+    print("3- Top artistas más populares ")
+    print("4- Top canciones más populares ")
+    print("5- Canción popular por artista ")
+    print("6- Discografía de artista ")
+    print("7- Clasificación de canciones por distribucion")
+    print("0- Salir")
 
-catalog = None
+
+def initCatalog():
+    """
+    Inicializa el catalogo de canciones y albumes 
+    """
+    return controller.initCatalog()
+
+def loadData(catalog):
+    """""
+    Carga canciones en la estructura de datos
+    """
+    controller.loadData(catalog)
+
 
 """
 Menu principal
@@ -49,6 +68,15 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        catalog = initCatalog()
+        loadData(catalog)
+        sizeArtist = lt.size(catalog['artists'])
+        sizeAlbumes = lt.size(catalog['albumes'])
+
+        print('Artistas cargados: ' + str(sizeArtist) + '\n')
+        print('Albumes cargados: ' + str(sizeAlbumes) + '\n')
+
+        
 
     elif int(inputs[0]) == 2:
         pass
